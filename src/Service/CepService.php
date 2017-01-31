@@ -6,12 +6,8 @@
  * Time: 17:45
  */
 
-namespace ProcuraLivre\Services;
+namespace Begagt\Services;
 
-
-use Dmitrovskiy\IonicPush\Exception\RequestException;
-use ProcuraLivre\Repositories\CidadeRepository;
-use ProcuraLivre\Repositories\EstadoRepository;
 
 class CepService
 {
@@ -27,23 +23,12 @@ class CepService
     const RETURN_TYPE_QUERTY = 'querty';
 
     /**
-     * @var CidadeRepository
-     */
-    private $cidadeRepository;
-    /**
-     * @var EstadoRepository
-     */
-    private $estadoRepository;
-    /**
      * @var CacheService
      */
     private $cacheService;
 
-    public function __construct(CidadeRepository $cidadeRepository, EstadoRepository $estadoRepository, CacheService $cacheService)
+    public function __construct(CacheService $cacheService)
     {
-
-        $this->cidadeRepository = $cidadeRepository;
-        $this->estadoRepository = $estadoRepository;
         $this->cacheService = $cacheService;
     }
 
@@ -55,7 +40,7 @@ class CepService
     public function requestCep($cep,$type = self::RETURN_TYPE_JSON){
         $json_file = $this->builderUrl($cep,$type);
         if(array_key_exists('erro',$json_file)){
-            throw new RequestException("CEP Inválido!");
+            throw new \Exception("CEP Inválido!");
         }
         return $json_file;
     }
@@ -82,7 +67,7 @@ class CepService
 
             $result = $this->strategyConvert($args,$type);
             if(array_key_exists('erro',$result)){
-                throw new RequestException("Localidade Inválida!");
+                throw new \Exception("Localidade Inválida!");
             }
 
             $this->cacheService->put('zipcode_'.$args,$result);
