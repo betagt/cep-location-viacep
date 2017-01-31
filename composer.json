@@ -1,0 +1,21 @@
+{
+    "name": "betagt/cep-location-viacep",
+    "description": "request de cep atraves do laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "diuliano de sousa oliveira",
+            "email": "diuliano@betagt.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    	"php": ">=5.6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "BetaGT\\CepLocation\\" : "src/"
+        }
+    }
+}
